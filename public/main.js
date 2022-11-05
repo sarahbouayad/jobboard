@@ -1,4 +1,4 @@
-var checkBox = document.getElementsByClassName("fa-square-check");
+var checkBox = document.getElementsByClassName("fa-square");
 var trash = document.getElementsByClassName("fa-trash-o");
 
 Array.from(checkBox).forEach(function(element) {
@@ -7,8 +7,9 @@ Array.from(checkBox).forEach(function(element) {
         const jobListing = this.parentNode.parentNode.childNodes[3].innerText
         const connect = this.parentNode.parentNode.childNodes[5].innerText
         const msg = this.parentNode.parentNode.childNodes[7].innerText
-        const checkBoxIcon = this.dataset.checkBox === "true"
+        const checkBoxIcon = this.dataset.checkbox === "true"
 
+        console.log(this.dataset)
         fetch('messages', {
           method: 'put',
           headers: {'Content-Type': 'application/json'},
@@ -67,9 +68,10 @@ Array.from(checkBox).forEach(function(element) {
 
 Array.from(trash).forEach(function(element) {
       element.addEventListener('click', function(){
-        const jobListing = this.parentNode.parentNode.childNodes[1].innerText
-        const connect = this.parentNode.parentNode.childNodes[3].innerText
-        const msg = this.parentNode.parentNode.childNodes[5].innerText
+        const name = this.parentNode.parentNode.childNodes[1].innerText
+        const jobListing = this.parentNode.parentNode.childNodes[3].innerText
+        const connect = this.parentNode.parentNode.childNodes[5].innerText
+        const msg = this.parentNode.parentNode.childNodes[7].innerText
 
         fetch('messages', {
           method: 'delete',

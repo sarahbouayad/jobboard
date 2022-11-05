@@ -8,69 +8,165 @@
     <script src="https://kit.fontawesome.com/43daf91e79.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="container">
+  <div class="container">
 
-    <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-    </div>
+      <div class="page-header text-center">
+          <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+          <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+      </div>
 
-    <div class="row">
+      <div class="row">
 
-        <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
-            <div class="well">
-                <h3><span class="fa fa-user"></span> Local</h3>
+          <!-- LOCAL INFORMATION -->
+          <div class="col-sm-12">
+              <div class="well">
+                  <h3><span class="fa fa-user"></span> Local</h3>
 
-                <% if (user.local.email) { %>
-                    <p>
-                        <strong>id</strong>: <%= user._id %><br>
-                        <strong>email</strong>: <%= user.local.email %><br>
-                        <strong>password</strong>: <%= user.local.password %>
-                    </p>
+                  <% if (user.local.email) { %>
+                      <p>
+                          <strong>id</strong>: <%= user._id %><br>
+                          <strong>email</strong>: <%= user.local.email %><br>
+                          <strong>password</strong>: <%= user.local.password %>
+                      </p>
 
-                    <a href="/unlink/local" class="btn btn-default">Unlink</a>
-                <% } else { %>
-                    <a href="/connect/local" class="btn btn-default">Connect Local</a>
+                      <a href="/unlink/local" class="btn btn-default">Unlink</a>
+                  <% } else { %>
+                      <a href="/connect/local" class="btn btn-default">Connect Local</a>
+                  <% } %>
+
+              </div>
+          </div>
+          
+          <div class="col-sm-12">
+            <h3>Jobs</h3>
+
+
+            <% if (user.local.email) { %>
+            <form class="" action="/messages" method="POST">
+              <input type="text" value="<%= user.local.email %>" name="name" required>
+              <input type="text" placeholder="Job Listing" value="" name="jobListing" required>
+              <input type="text" placeholder="Connect's Name" name="connect" required>
+              <input type="text" placeholder="Message" name="msg" required>
+              <select name="dropDown" class="form-select" aria-label="Default select example" placeholder="Location">
+                <option value="dropDown_newYork" name="New York">New York</option>
+                <option value="dropDown_philadelphia" name="dropDown_philadelphia">Philadelphia</option>
+                <option value="dropDown_boston" name="dropDown_boston">Boston</option>
+                <option value="dropDown_pittsburgh" name="dropDown_pittsburgh">Pittsburgh</option>
+              </select>
+              <button type="submit">Submit</button>
+            </form>
+
+            <!-- container for new york category -->
+            <div class="col-sm-12 collectionContainer">
+              <h4>New York</h4>
+              <ul class="newYorkCollection  .list-group-flush">
+              <% for(var i=0; i <list.length; i++) {%>
+                  <% if(list[i].dropDown === "dropDown_newYork") { %>
+                    <li class="listofNewYorkJobs list-group-item">
+                      <span><%= list[i].name %></span>
+                      <span><%= list[i].jobListing %></span>
+                      <span><%= list[i].connect %></span>
+                      <span><%= list[i].msg %></span>
+                      <% if(list[i].checkBox === true) { %>
+                        <span><i class="fa-regular fa-square check-green" data-checkbox="true" aria-hidden="true"></i></span>
+                      <% } else { %>
+                        <span><i class="fa-regular fa-square check-regular" data-checkbox="false" aria-hidden="true"></i></span>
+                      <% } %>
+
+                      <span><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                    </li>
+                  <% } %>
+
                 <% } %>
-
+              </ul>
             </div>
-        </div>
-        <div class="col-sm-6">
-          <h3>Jobs</h3>
-          <ul class="list">
-          <% for(var i=0; i<list.length; i++) {%>
-            <li class="message">
-              <span><%= list[i].name %></span>
-              <span><%= list[i].jobListing %></span>
-              <span><%= list[i].connect %></span>
-              <span><%= list[i].msg %></span>
 
-              <% if(list[i] .checkBox === true) { %>
-                <span><i class="fa-regular fa-square-check check-green" data-heart="true" aria-hidden="true"></i></span>
-              <% } else { %>
-                <span><i class="fa-regular fa-square-check check-regular" data-heart="false" aria-hidden="true"></i></span>
-              <% } %>
+            <!-- container for boston category -->
+
+              <div class="collectionContainer">
+                <h4>Boston</h4>
+                <ul class="bostonCollection .list-group-flush">
+                <% for(var i=0; i <list.length; i++) {%>
+                    <% if(list[i].dropDown === "dropDown_boston") { %>
+                      <li class="bostonJobs list-group-item">
+                        <span><%= list[i].name %></span>
+                        <span><%= list[i].jobListing %></span>
+                        <span><%= list[i].connect %></span>
+                        <span><%= list[i].msg %></span>
+                        <% if(list[i].checkBox === true) { %>
+                          <span><i class="fa-regular fa-square check-green" data-checkbox="true" aria-hidden="true"></i></span>
+                        <% } else { %>
+                          <span><i class="fa-regular fa-square check-regular" data-checkbox="false" aria-hidden="true"></i></span>
+                        <% } %>
+
+                        <span><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                      </li>
+                    <% } %>
+                  
+                  <% } %>
+                </ul>
+              </div>
+
+            <!-- container for philadelphia category -->
+              <div class="collectionContainer">
+                <h4>Philadelphia</h4>
+                <ul class="philadelphiaCollection .list-group-flush">
+                <% for(var i=0; i <list.length; i++) {%>
+                    <% if(list[i].dropDown === "dropDown_philadelphia") { %>
+                      <li class="phillyJobs list-group-item">
+                        <span><%= list[i].name %></span>
+                        <span><%= list[i].jobListing %></span>
+                        <span><%= list[i].connect %></span>
+                        <span><%= list[i].msg %></span>
+                        <% if(list[i].checkBox === true) { %>
+                          <span><i class="fa-regular fa-square check-green" data-checkbox="true" aria-hidden="true"></i></span>
+                        <% } else { %>
+                          <span><i class="fa-regular fa-square check-regular" data-checkbox="false" aria-hidden="true"></i></span>
+                        <% } %>
+
+                        <span><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                      </li>
+                    <% } %>
+                  
+                  <% } %>
+                </ul>
+              </div>
+
+              <!-- container for pittsburgh category -->
+
+              <div class="collectionContainer">
+                <h4>Pittsburgh</h4>
+                <ul class="pittCollection .list-group-flush">
+                <% for(var i=0; i <list.length; i++) {%>
+                    <% if(list[i].dropDown === "dropDown_pittsburgh") { %>
+                      <li class="pittJobs list-group-item">
+                        <span><%= list[i].name %></span>
+                        <span><%= list[i].jobListing %></span>
+                        <span><%= list[i].connect %></span>
+                        <span><%= list[i].msg %></span>
+
+                        <% if(list[i].checkBox === true) { %>
+                          <span><i class="fa-regular fa-square check-green" data-checkbox="true" aria-hidden="true"></i></span>
+                        <% } else { %>
+                          <span><i class="fa-regular fa-square check-regular" data-checkbox="false" aria-hidden="true"></i></span>
+                        <% } %>
+
+                        <span><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                      </li>
+                    <% } %>
+                  
+                  <% } %>
+                </ul>
+              </div>
               
-              <span><i class="fa fa-trash-o" aria-hidden="true"></i></span>
-            </li>
+
+
+        
+        
+          </div>
           <% } %>
-          </ul>
-
-          <h2>Add a message</h2>
-
-        <% if (user.local.email) { %>
-          <form action="/messages" method="POST">
-            <input type="text" value="<%= user.local.email %>" name="name">
-            <input type="text" placeholder="Job Listing" value="" name="jobListing">
-            <input type="text" placeholder="Connect's Name" name="connect">
-            <input type="text" placeholder="Message" name="msg">
-            <button type="submit">Submit</button>
-          </form>
         </div>
-        <% } %>
-
-</div>
+  </div>
 
 <script src="main.js"></script>
 

@@ -8,6 +8,7 @@ img{
 
 .check-green{
   color: green;
+  background-color: rgb(2, 127, 2); 
 }
 
 .check-regular{
@@ -15,3 +16,14 @@ img{
 }
 
 
+
+
+
+
+/* .collectionContainer{
+  display: flexbox; 
+} */
+
+.form-select{
+  height: 2em;
+}

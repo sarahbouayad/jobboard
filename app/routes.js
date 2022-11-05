@@ -12,10 +12,15 @@ module.exports = function(app, passport, db) {
         db.collection('list').find({name: req.user.local.email}).toArray((err, result) => {
   
           if (err) return console.log(err)
-          console.log(result)
+          let nyc = result.filter(hash => hash.dropDown === 'dropDown_newYork')
+          let philly = result.filter(hash => hash.dropDown === 'dropDown_philadelphia')
+          let boston = result.filter(hash => hash.dropDown === 'dropDown_boston')
+          let pittsburgh = result.filter(hash => hash.dropDown === 'dropDown_pittsburgh')
+          // do it for the other cities
+          let arr = [nyc,boston,philly,pittsburgh].flat()
           res.render('profile.ejs', {
             user : req.user,
-            list: result 
+            list: arr
           })
         })
     });
@@ -39,7 +44,8 @@ module.exports = function(app, passport, db) {
         jobListing: req.body.jobListing, 
         connect: req.body.connect, 
         msg: req.body.msg, 
-        checkBox: false
+        checkBox: false,
+        dropDown: req.body.dropDown
       },
     (err, result) => {
         if (err) return console.log(err)
@@ -48,15 +54,22 @@ module.exports = function(app, passport, db) {
       });
     })
 
+    // 11/4, 1:21PM, tested logic below. 
+    // green checkbox tested and it does not return false when clicked after it returns true. (you can't uncheck)
+
     app.put('/messages', (req, res) => {
+      console.log(req.body)
       db.collection('list').findOneAndUpdate(
         {
-        name: req.body.name, 
-        msg: req.body.msg},
+          name: req.body.name, 
+          msg: req.body.msg,
+        },
+
         {
+          // $set explanation
         $set: {
-          checkBox: !req.body.checkBox
-        }
+          checkBox: !req.body.checkBox,
+        },
       }, 
       {
         sort: {_id: -1},
@@ -70,8 +83,11 @@ module.exports = function(app, passport, db) {
   })
 
     app.delete('/messages', (req, res) => {
-      db.collection('list').findOneAndDelete({name: req.body.name, msg: req.body.msg}, (err, result) => {
+      db.collection('list').findOneAndDelete({
+        name: req.body.name, 
+        msg: req.body.msg}, (err, result) => {
         if (err) return res.send(500, err)
+        console.log('deleted')
         res.send('Message deleted!')
       })
     })
