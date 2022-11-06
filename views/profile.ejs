@@ -84,7 +84,7 @@
     
 
           <!-- container for new york category -->
-          <div class="col-sm-12">
+          <div>
             <h4>New York</h4>
             <ul class="newYorkCollection  .list-group-flush">
               <% for(var i=0; i <list.length; i++) {%>
@@ -161,6 +161,9 @@
               <% for(var i=0; i <list.length; i++) {%>
                 <% if(list[i].dropDown==="dropDown_philadelphia" ) { %>
                   <li class="phillyJobs list-group-item">
+                    <<span class="list-group-item">
+                      <%= list[i].name %>
+                    </span>
                     <span class="list-group-item">
                       <%= list[i].jobListing %>
                     </span>
@@ -170,9 +173,6 @@
                     <span class="list-group-item">
                       <%= list[i].msg %>
                     </span>
-                    <span class="list-group-item">
-                      <%= list[i].name %>
-                    </span>
                     <% if(list[i].checkBox===true) { %>
                       <span class="list-group-item"><i class="fa-regular fa-square check-green" data-checkbox="true"
                           aria-hidden="true"></i></span>
@@ -180,7 +180,6 @@
                         <span class="list-group-item"><i class="fa-regular fa-square check-regular"
                             data-checkbox="false" aria-hidden="true"></i></span>
                         <% } %>
-
                           <span class="list-group-item"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
                   </li>
                   <% } %>
@@ -196,7 +195,7 @@
             <ul class="pittCollection .list-group-flush">
               <% for(var i=0; i <list.length; i++) {%>
                 <% if(list[i].dropDown==="dropDown_pittsburgh" ) { %>
-                  <li class="pittJobs list-group-item">
+                  <li class="list-group-item">
                     <span class="list-group-item" class="list-group-item">
                       <%= list[i].name %>
                     </span>
@@ -214,15 +213,14 @@
                       <span class="list-group-item"><i class="fa-regular fa-square check-green" data-checkbox="true"
                           aria-hidden="true"></i></span>
                       <% } else { %>
-                        <span class="list-group-item"><i class="fa-regular fa-square check-regular"
+                      <span class="list-group-item"><i class="fa-regular fa-square check-regular"
                             data-checkbox="false" aria-hidden="true"></i></span>
-                        <% } %>
-
-                          <span class="list-group-item"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+                      <% } %>
+                      <span class="list-group-item"><i class="fa fa-trash-o" aria-hidden="true"></i></span>
                   </li>
                   <% } %>
 
-                    <% } %>
+                <% } %>
             </ul>
           </div>
 
