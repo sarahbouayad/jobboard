@@ -2,6 +2,7 @@ body{
   padding-top:80px;
   word-wrap:break-word;
 }
+
 img{
   height: 200px;
 }
@@ -15,10 +16,9 @@ img{
   color:black; 
 }
 
-
-
-
-
+.well{
+  display: none;
+}
 
 /* .collectionContainer{
   display: flexbox; 

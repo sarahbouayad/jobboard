@@ -8,7 +8,7 @@ Array.from(checkBox).forEach(function(element) {
         const connect = this.parentNode.parentNode.childNodes[5].innerText
         const msg = this.parentNode.parentNode.childNodes[7].innerText
         const checkBoxIcon = this.dataset.checkbox === "true"
-
+      
         console.log(this.dataset)
         fetch('messages', {
           method: 'put',
