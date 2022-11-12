@@ -1,6 +1,13 @@
 body{
   padding-top:80px;
   word-wrap:break-word;
+  font-family: 'Roboto' sans-serif; 
+  font-weight: 300;
+}
+
+h3{
+  font-family: 'Roboto' sans-serif; 
+  font-weight: 300;
 }
 
 img{

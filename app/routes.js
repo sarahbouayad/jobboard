@@ -1,5 +1,5 @@
 module.exports = function(app, passport, db) {
-
+  ObjectID = require('mongodb').ObjectID
 // normal routes ===============================================================
 
     // show the home page (will also have our login links)
@@ -43,8 +43,7 @@ module.exports = function(app, passport, db) {
         name: req.body.name,
         jobListing: req.body.jobListing, 
         connect: req.body.connect, 
-        msg: req.body.msg, 
-        checkBox: false,
+        msg: req.body.msg,
         dropDown: req.body.dropDown
       },
     (err, result) => {
@@ -57,18 +56,17 @@ module.exports = function(app, passport, db) {
     // 11/4, 1:21PM, tested logic below. 
     // green checkbox tested and it does not return false when clicked after it returns true. (you can't uncheck)
 
-    app.put('/messages', (req, res) => {
-      console.log(req.body)
+    app.put('/editMsg', (req, res) => {
+
       db.collection('list').findOneAndUpdate(
         {
-          name: req.body.name, 
-          msg: req.body.msg,
-        },
+         _id: ObjectID(req.body._id)
 
+        },
         {
           // $set explanation
         $set: {
-          checkBox: !req.body.checkBox,
+          msg: req.body.msg
         },
       }, 
       {
@@ -82,7 +80,7 @@ module.exports = function(app, passport, db) {
     )
   })
 
-    app.delete('/messages', (req, res) => {
+    app.delete('/delete', (req, res) => {
       db.collection('list').findOneAndDelete({
         name: req.body.name, 
         msg: req.body.msg}, (err, result) => {

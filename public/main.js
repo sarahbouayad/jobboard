@@ -31,15 +31,36 @@ Array.from(checkBox).forEach(function(element) {
       });
 });
 
+function edit(id){
+  let messageText = prompt("Edit Your Message!")
+ 
+
+  fetch('editMsg', {
+    method: 'put',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      '_id': id,
+      'msg': messageText
+    })
+  }).then(function (response) {
+    window.location.reload()
+  })
+
+
+}
+
+
+
+
 Array.from(trash).forEach(function(element) {
       element.addEventListener('click', function(){
         const name = this.parentNode.parentNode.childNodes[1].innerText
-        const jobListing = this.parentNode.parentNode.childNodes[3].innerText
-        const connect = this.parentNode.parentNode.childNodes[5].innerText
         const msg = this.parentNode.parentNode.childNodes[7].innerText
-        console.log(name)
-        console.log(msg)
-        fetch('messages', {
+ 
+
+        fetch('delete', {
           method: 'delete',
           headers: {
             'Content-Type': 'application/json'
